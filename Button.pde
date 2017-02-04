@@ -3,18 +3,19 @@ class Button
  //variables
  float xloc;
  float yloc;
- int fillC;
- int fillS;
+ String text2;
+ int number;
  int r1 = 20;
  int r2 = 20;
  
  //the co-ordinates and the two different colors of the buttons are passed.
- Button(float x, float y, int Cfill, int Sfill )
+ Button(float x, float y, String text, int num)
  {
    xloc = x;
    yloc =y;
-   fillC = Cfill;
-   fillS = Sfill;
+   text2 = text;
+   number = num;
+   
  }
  
  void run()
@@ -24,23 +25,34 @@ class Button
   
  void display()
   {
-    stroke(fillS);
-    fill(fillC);
-    ellipse(xloc, yloc, r1, r2);
+    if(over()==true)
+    {
+    fill(red);
+    }
+    else
+    fill(blue);
+    
+    text(text2, xloc, yloc);
     if(mousePressed)
     {
-      if(mouseX >=xloc-r1 && mouseX <=xloc+r1 && mouseY >= yloc-r2 && mouseY <= yloc+r2)
+      if(mouseX >=xloc && mouseX <=xloc+100 && mouseY <= yloc+10)
       {
-        if(fillC==darkBlue)
+        if(number == 1)
         {
           state = LoadingScreen;
         }//end if
         
-        if(fillC==darkRed)
+        if(number == 2)
         {
-          state= test2;
+          state = test2;
         }//end if
       }//end if
      }//end if
   }//end display()
+      boolean over(){
+    if(mouseX >=xloc && mouseX <=xloc+120 && mouseY <= yloc+10)
+    {
+  return true;
+    }
+    return false;
 }//end Button

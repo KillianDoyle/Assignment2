@@ -27,10 +27,15 @@ float LoadPos = 0;
 int PercentageLoading = 0;
 
 
+//Fonts
+PFont Digi_tech8; 
+PFont Digi_tech16;
+PFont Digi_tech20;
+
 Button button1;
 Button button2;
 AmmoDrop ammoCrate;
-HomeButton home;
+
 
 //--------------------variables for shooter--------------------------------//
 int score_shooter = 0;
@@ -64,10 +69,18 @@ void setup()
   
   img = loadImage("back.png");
   
-  button1 = new Button(width/3, height/4, darkBlue, blue);
-  button2 = new Button(width/3, height/3, darkRed, red);
+  button1 = new Button(width/3, height/4, "PLAY", 1);
+  button2 = new Button(width/3, height/2, "Insructions", 2);
   ammoCrate = new AmmoDrop(random(20, 530));          //ammo crates spawn between 20 and 530
-  home = new HomeButton(500, 100);
+
+  
+  //Fonts
+  Digi_tech8 = loadFont("Digitaltech-8.vlw"); 
+  Digi_tech16 = loadFont("Digitaltech-16.vlw"); 
+  Digi_tech20 = loadFont("Digitaltech-20.vlw");
+  textFont(Digi_tech8);
+  textFont(Digi_tech16);
+  textFont(Digi_tech20);
 }//end setup()
 
 void draw()
@@ -105,6 +118,7 @@ void draw()
 
 void Loading()
 {
+  textFont(Digi_tech16);    
   fill(red);
   textSize(22);
 
@@ -185,6 +199,7 @@ void test1()
     // display score, ammo and magazine
     fill(white);
     stroke (white);
+    textFont(Digi_tech8); 
     textAlign(CENTER);
     textSize(16);
     text("Score: " + score_shooter, 40, 585);
@@ -337,7 +352,7 @@ void gameFinish()
       {
         text("Incredible!", width/2, height/2 + 70);
       }//end else
-     home.run();
+
 }//end gameFinnish()
 
 
@@ -363,8 +378,9 @@ void reset()
 
 void test2()
 {
+  textFont(Digi_tech8); 
   background(0);
-  home.run();
+
   fill(255);
   stroke(255);
   textSize(16);

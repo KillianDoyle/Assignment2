@@ -36,10 +36,10 @@ class Button
   {
     if(over()==true)
     {
-    fill(red);
+    fill(yellow);
     }
     else
-    fill(blue);
+    fill(white);
     textFont(Digi_tech16);
     text(text2, xloc, yloc);
     
@@ -55,6 +55,11 @@ class Button
         if(number == 2)
         {
           state = test2;
+        }//end if
+        
+        if(number == 3)
+        {
+          state = options;
         }//end if
       }//end if
      }//end if

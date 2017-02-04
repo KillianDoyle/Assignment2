@@ -27,9 +27,9 @@ class AmmoDrop
     {
       ammoy[i]= ammoy[i] + speed;
       rect(ammox[i], ammoy[i]++, 40, 20);      //ammo box
-      textSize(12);
+      textFont(ArialBold14); 
       fill(yellow);
-      text("AMMO", ammox[i]+20, ammoy[i]+12);    //ammo text on box
+      text("AMMO", ammox[i]+1, ammoy[i]+12);    //ammo text on box
       if(ammox[i] > mouseX-40 && ammox[i]< ammox[i]+40 && ammoy[i] > 530)      //if the player picks up ammo
       {
           ammo = ammo+10;

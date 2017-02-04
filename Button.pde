@@ -23,6 +23,15 @@ class Button
    display();
  }//end run
   
+  boolean over()
+  {
+    if(mouseX >=xloc && mouseX <=xloc+160 && mouseY >= yloc-20 && mouseY <= yloc+10)
+    {
+      return true;
+    }
+    return false;
+  }
+  
  void display()
   {
     if(over()==true)
@@ -31,11 +40,12 @@ class Button
     }
     else
     fill(blue);
-    
+    textFont(Digi_tech16);
     text(text2, xloc, yloc);
+    
     if(mousePressed)
     {
-      if(mouseX >=xloc && mouseX <=xloc+100 && mouseY <= yloc+10)
+      if(mouseX >=xloc && mouseX <=xloc+160 && mouseY >= yloc-20 && mouseY<= yloc+10)
       {
         if(number == 1)
         {
@@ -49,10 +59,4 @@ class Button
       }//end if
      }//end if
   }//end display()
-      boolean over(){
-    if(mouseX >=xloc && mouseX <=xloc+120 && mouseY <= yloc+10)
-    {
-  return true;
-    }
-    return false;
 }//end Button

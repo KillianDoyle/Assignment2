@@ -54,6 +54,7 @@ OptionSwitch lives;
 //--------------------variables for shooter--------------------------------//
 int score_shooter = 0;
 int ammo = 25;
+int player_lives = 5;
 int ballSize = 20;
 boolean fire = false;
 int gameOver = 0;
@@ -73,7 +74,7 @@ int now;
 //flag
 boolean flash = false;
 
-int livesFlag = 1;
+int livesFlag = 0;
 int cursorFlag = 0;
 
 
@@ -245,6 +246,11 @@ void test1()
     stroke (white);
     text("Score: " + score_shooter, 20, 585);
     text("Ammo: " + ammo, 530, 585);
+    if(livesFlag == 0)
+    {
+      text("Lives: " + player_lives, 280, 585);
+    }//end for
+    
     for (int i=0; i<ammo; i++)
     {
       rect( 580, (550)-i*10, 6, 8);    //draws blocks to reprisent magazine/ ammo
@@ -263,8 +269,8 @@ void test1()
        if (flash)
        {
            text("AMMO LOW", 290, height/2);     
-       }
-    }
+       }//end if
+    }//end if
     
     if(ammo == 0)
     {
@@ -272,8 +278,8 @@ void test1()
        if (flash)
        {
            text("AMMO EMPTY", 290, height/2);     
-       }
-    }
+       }//end if
+    }//end if
     
     if(fire)
     {
@@ -287,6 +293,7 @@ void test1()
     {
       crosshair();
     }
+    
     else
     {
       noCursor();
@@ -296,7 +303,21 @@ void test1()
     {
       ammoFalling();
     }
-   
+    if(livesFlag==1)
+    {
+      for (int i=0; i< 5; i++)
+      {
+         if(bally[i] > 600)
+         {
+           player_lives--;
+         }//end if
+         
+         if(player_lives == 0)
+         {
+           gameOver = 1;
+         }//end if
+      }//end for
+    }//end if
     for (int i=0; i< 5; i++)
     {
        if(bally[i] > 600)
@@ -304,12 +325,12 @@ void test1()
          gameOver = 1;
          bally[i]=0;    //reset bally to allow game to place again
        }//end if
-       
-       if (gameOver == 1)
-       {
-         state = gameFinish;
-       }//end if
     }//end for
+    
+   if (gameOver == 1)
+   {
+     state = gameFinish;
+   }//end if
 }//end test1()
  
 
@@ -435,7 +456,7 @@ void options()
   lives.run();
   cursor.run();
   home.run();
-  text(cursorFlag, 100, 100);
+  text(livesFlag, 100, 100);
 }
 
 

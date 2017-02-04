@@ -53,8 +53,9 @@ OptionSwitch lives;
 
 //--------------------variables for shooter--------------------------------//
 int score_shooter = 0;
+int high_score = 0;
 int ammo = 25;
-int player_lives = 5;
+int player_lives = 3;
 int ballSize = 20;
 boolean fire = false;
 int gameOver = 0;
@@ -303,34 +304,40 @@ void test1()
     {
       ammoFalling();
     }
-    if(livesFlag==1)
+    
+    if(livesFlag == 0)
     {
       for (int i=0; i< 5; i++)
       {
          if(bally[i] > 600)
          {
-           player_lives--;
+           player_lives = player_lives - 1;
+           bally[i]=0;    //reset bally to allow game to place again
          }//end if
          
          if(player_lives == 0)
          {
            gameOver = 1;
+           bally[i]=0;    //reset bally to allow game to play again
          }//end if
       }//end for
     }//end if
-    for (int i=0; i< 5; i++)
+    else
     {
-       if(bally[i] > 600)
-       {
-         gameOver = 1;
-         bally[i]=0;    //reset bally to allow game to place again
-       }//end if
-    }//end for
-    
-   if (gameOver == 1)
-   {
-     state = gameFinish;
-   }//end if
+      for (int i=0; i< 5; i++)
+      {
+         if(bally[i] > 600)
+         {
+           gameOver = 1;
+           bally[i]=0;    //reset bally to allow game to play again
+         }//end if
+      }//end for
+    }//end else
+      
+     if (gameOver == 1)
+     {
+       state = gameFinish;
+     }//end if
 }//end test1()
  
 
@@ -441,6 +448,7 @@ void reset()
        gameOver = 0;
        score_shooter = 0;
        state = InitialState;
+       player_lives = 3;
        ammo = 25;
        LoadPos = 0;
        LoadNeg = 0;
@@ -450,6 +458,8 @@ void reset()
       }//end for
 }//end reset()
 
+
+
 void options()
 {
   background(0);
@@ -457,7 +467,7 @@ void options()
   cursor.run();
   home.run();
   text(livesFlag, 100, 100);
-}
+}//en options()
 
 
 

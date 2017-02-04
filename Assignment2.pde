@@ -6,6 +6,21 @@ int test2 = 3;
 int gameFinish = 4;
 int state = test1;
 
+//colors
+int green = color(0, 255, 0);
+int darkGreen = color(13, 72, 1);
+int red = color(255, 0 ,0);
+int darkRed = color(180, 0, 0);
+int blue = color (0, 0, 255);
+int darkBlue = color(5, 0, 180);
+int white = color(255); 
+int yellow = color(250, 255, 0);
+
+//Variables for Loading Screen
+float LoadNeg = 0;
+float LoadPos = 0;
+int PercentageLoading = 0;
+
 void setup()
 {
   size(600, 600, P2D);
@@ -124,6 +139,66 @@ void test1()
     }//end for
 }//end test1()
 
+
+void Loading()
+{
+  fill(red);
+  textSize(22);
+
+  if (LoadPos <= 25)
+  {
+    text("Loading.",width/2 - 52, height/2 + 75);
+  }
+  else if (LoadPos < 50 && LoadPos >= 25)
+  {
+    text("Loading..",width/2 - 52, height/2 + 75);
+  }
+  else if (LoadPos < 75 && LoadPos >= 50)
+  {
+    text("Loading...",width/2 - 52, height/2 + 75);
+  }
+  else if (LoadPos <= 100 && LoadPos >= 75)
+  {
+    text("Loading.",width/2 - 52, height/2 + 75);
+  }
+  else if (LoadPos <= 125 && LoadPos >= 100)
+  {
+    text("Loading..",width/2 - 52, height/2 + 75);
+  }//end else if
+  else if (LoadPos <= 150 && LoadPos >= 125)
+  {
+    text("Loading...",width/2 - 52, height/2 + 75);
+  }//end else if
+  
+  //Loading Bar
+  stroke(0);
+  fill(red);
+  noStroke();
+  rect(width/2, height/2 - 70, LoadNeg, 8);
+  rect(width/2, height/2 - 70, LoadPos, 8);
+  
+  LoadPos +=0.5;
+  if (LoadPos >= 150)
+  {
+     LoadPos = 150;
+  }//end if
+  
+  LoadNeg -= 0.5;
+  if (LoadNeg <= -150)
+  {
+     LoadNeg = -150;
+  }//end if
+  
+  //Percentage
+  PercentageLoading = int ((LoadPos/150)*(100));
+  text(PercentageLoading + "%", width/2-30, height/2);
+  
+  if(PercentageLoading == 100)
+  {
+    delay(300);
+    state = test1;
+  }//end if
+}//end Loading()
 
 void test2()
 {

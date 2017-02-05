@@ -16,6 +16,7 @@ int state = InitialState;
 PImage img;
 PImage alien;
 PImage space;
+PImage stars;
 
 
 //colors
@@ -89,6 +90,7 @@ void setup()
   img = loadImage("back.png");
   alien = loadImage("alien.png");
   space = loadImage("space.png");
+  stars = loadImage("stars.jpg");
   
   button1 = new Button(width/3+45, 300, "Play", 1);
   button2 = new Button(width/3, 360, "Insructions", 2);
@@ -139,6 +141,7 @@ void draw()
   
   else if(state == test1)
   {
+    image(stars, -50, -50);
     test1();
   }//end else if
   
@@ -238,7 +241,6 @@ void buttons()
 void test1()
 {
     textFont(Digi_tech8);  
-    background (0);
     fill(blue);
     stroke (blue);
     triangle(mouseX-8, 540, mouseX+8, 540, mouseX, 565);
@@ -435,7 +437,7 @@ void gameFinish()
       }//end if else
       else 
       {
-        text("Incredible!", width/3-40, height/2 + 100);
+        text("Incredible!", width/3-10, height/2 + 100);
       }//end else
      home.run();
 }//end gameFinnish()

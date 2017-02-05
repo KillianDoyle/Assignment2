@@ -371,7 +371,8 @@ void ballFalling()
   {
     for (int i=0; i<4; i++)
     {
-      ellipse(ballx[i], bally[i]++, ballSize, ballSize);
+      //ellipse(ballx[i], bally[i]++, ballSize, ballSize);
+      image(alien, ballx[i], bally[i]++, ballSize, ballSize);
     }//end for
   }//end if
 }//end ballFalling()

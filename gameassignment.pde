@@ -12,7 +12,7 @@ int test1 = 2;
 int test2 = 3;
 int options = 4;
 int gameFinish = 5;
-int state = gameFinish;
+int state = InitialState;
 
 //images
 PImage img;
@@ -122,7 +122,7 @@ void setup()
   textFont(Arial24);
   textFont(ArialBold14);
   
-    //sounds
+  //sounds
   minim = new Minim(this);
   toggle = minim.loadFile("Toggle.mp3");
   laser = minim.loadFile("Laser.mp3");
@@ -142,6 +142,8 @@ void draw()
     text("Alien   Apocalypse", width/11, height/4);
     image(alien, 500, 400, 200, 200);
     buttons();
+    fill(white);
+    text("High Score " + high_score, width/3, 570);
   }//end if
   
   else if(state == LoadingScreen)
@@ -184,27 +186,27 @@ void Loading()
   fill(red);
   if (LoadPos <= 25)
   {
-    text("Loading.",width/2 - 52, height/2 + 75);
+    text("Loading", width/2 - 50, height/2 + 75);
   }
   else if (LoadPos < 50 && LoadPos >= 25)
   {
-    text("Loading..",width/2 - 52, height/2 + 75);
+    text("Loading.", width/2 - 50, height/2 + 75);
   }
   else if (LoadPos < 75 && LoadPos >= 50)
   {
-    text("Loading...",width/2 - 52, height/2 + 75);
+    text("Loading..", width/2 - 50, height/2 + 75);
   }
   else if (LoadPos <= 100 && LoadPos >= 75)
   {
-    text("Loading.",width/2 - 52, height/2 + 75);
+    text("Loading..." ,width/2 - 50, height/2 + 75);
   }
   else if (LoadPos <= 125 && LoadPos >= 100)
   {
-    text("Loading..",width/2 - 52, height/2 + 75);
+    text("Loading", width/2 - 50, height/2 + 75);
   }//end else if
   else if (LoadPos <= 150 && LoadPos >= 125)
   {
-    text("Loading...",width/2 - 52, height/2 + 75);
+    text("Loading.", width/2 - 50, height/2 + 75);
   }//end else if
   
   //Loading Bar

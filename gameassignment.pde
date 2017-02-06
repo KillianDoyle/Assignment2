@@ -22,6 +22,9 @@ PImage space;
 PImage stars;
 PImage brainAlien;
 PImage spaceShip;
+PImage explosion1;
+PImage explosion2;
+PImage explosion3;
 
 
 //colors
@@ -101,6 +104,11 @@ void setup()
   stars = loadImage("stars.jpg");
   brainAlien = loadImage("brain_alien.png");
   spaceShip = loadImage("SpaceShip.png");
+  explosion1 = loadImage("explosion1.png");
+  explosion2 = loadImage("explosion2.png");
+  explosion3 = loadImage("explosion3.png");
+  
+  
   
   //classes
   button1 = new Button(width/3+45, 300, "Play", 1);
@@ -158,6 +166,7 @@ void draw()
   
   else if(state == test1)
   {
+    alien_recording.pause();
     image(stars, -50, -50);
     test1();
   }//end else if
@@ -457,7 +466,20 @@ void cannon(int shotX)
       line(mouseX, 520, mouseX, bally[i]);
       fill(red);
       stroke(red);
-      ellipse(ballx[i], bally[i], ballSize+25, ballSize+25);  //explosion
+      //ellipse(ballx[i], bally[i], ballSize+25, ballSize+25);  //explosion
+      //determine which explosion to use
+      if(score_shooter % 2 == 0)
+      {
+        image(explosion1, ballx[i]-10, bally[i], 80, 80);
+      }//end if
+      if(score_shooter % 3 == 0)
+      {
+        image(explosion2, ballx[i]-10, bally[i], 80, 80);
+      }//end if
+      else
+      {
+        image(explosion3, ballx[i]-10, bally[i], 80, 80);
+      }//end else
       ballx[i] = getRandomX();
       bally[i] = 0;        //reset ball to top of screen
       score_shooter++;    // update score
@@ -552,10 +574,10 @@ void test2()
   background(0);
   home.run();      //home button
   fill(yellow);
-  textFont(Digi_tech16);
+  textFont(Digi_tech16);    //header
   text("Instructions", width/2-105, height/3-50);
   fill(white);
-  textFont(Digi_tech8);
+  textFont(Digi_tech8);    //body text
   //display insructions
   text("Use the mouse to move the player", width/2-130, height/3);
   text("Press the mouse to fire lazer", width/2-120, height/3+35);

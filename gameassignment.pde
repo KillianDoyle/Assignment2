@@ -11,7 +11,7 @@ int test1 = 2;
 int test2 = 3;
 int options = 4;
 int gameFinish = 5;
-int state = InitialState;
+int state = gameFinish;
 
 //images
 PImage img;
@@ -472,22 +472,22 @@ void gameFinish()
       
       if (flash)
       {
-          text("GAME OVER", width/3, height/2);   
+          text("GAME OVER", width/2.5, height/3);   
       }//end if
       
       fill(white);
-      text("Your score was : "+ score_shooter, width/3-50, height/2 + 50);
+      text("Your score was "+ score_shooter, width/2.5-60, height/3 + 50);
       if(score_shooter < 20)
       {
-        text("Better luck next time ", width/3-80, height/2 + 100);
+        text("Better luck next time ", width/2.5-80, height/3 + 100);
       }//end if
       else if(score_shooter > 21 && score_shooter < 99)
       {
-        text("Wow! Good work!", width/3-25, height/2 + 100);
+        text("Good work!", width/2.5-7, height/3 + 100);
       }//end if else
       else 
       {
-        text("Incredible!", width/3-5, height/2 + 100);
+        text("Incredible!", width/2.5-5, height/3 + 100);
       }//end else
      home.run();
 }//end gameFinnish()

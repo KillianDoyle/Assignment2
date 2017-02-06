@@ -2,6 +2,7 @@ import ddf.minim.*;
 
 Minim minim;
 AudioPlayer toggle;
+AudioPlayer lazer;
 
 //Program States
 int InitialState = 0;
@@ -87,11 +88,13 @@ void setup()
   smooth();
   background(0);
   
+  //images
   img = loadImage("back.png");
   alien = loadImage("alien.png");
   space = loadImage("space.png");
   stars = loadImage("stars.jpg");
   
+  //classes
   button1 = new Button(width/3+45, 300, "Play", 1);
   button2 = new Button(width/3, 360, "Insructions", 2);
   button3 = new Button(width/3+25, 420, "Options", 3);
@@ -100,13 +103,12 @@ void setup()
   lives = new OptionSwitch("Lives", "On", "Off", width/2-35, height/3, 35, 20, red, red);
   cursor = new OptionSwitch("Cursor", "On", "Off", width/2-35, height/3+90, 35, 20, yellow, yellow);
   
-    //Fonts
+  //Fonts
   Digi_tech8 = loadFont("Digitaltech-8.vlw"); 
   Digi_tech16 = loadFont("Digitaltech-16.vlw"); 
   Digi_tech30 = loadFont("Digitaltech-30.vlw");
   Arial24 = loadFont("ArialUnicodeMS-24.vlw");
   ArialBold14 = loadFont("ArialBold14.vlw");
-  
   textFont(Digi_tech8);
   textFont(Digi_tech16);
   textFont(Digi_tech30);
@@ -116,6 +118,8 @@ void setup()
     //sounds
   minim = new Minim(this);
   toggle = minim.loadFile("Toggle.mp3");
+  lazer = minim.loadFile("Lazer.mp3");
+  
 }//end setup()
 
 void draw()
@@ -391,6 +395,8 @@ void ammoFalling()
   
 void cannon(int shotX)
 {
+  lazer.play();
+  lazer.rewind();
   if(ammo > 0)
   {
   ammo--;

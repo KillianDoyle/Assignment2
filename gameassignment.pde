@@ -59,6 +59,7 @@ int score_shooter = 0;
 int high_score = 0;
 int ammo = 25;
 int player_lives = 3;
+int enemyNumber = 4;
 int ballSize = 28;
 boolean fire = false;
 int gameOver = 0;
@@ -66,8 +67,8 @@ int getRandomX()
 {
   return int(random(600));
 }
-int[] ballx = { getRandomX(), getRandomX(), getRandomX(), getRandomX(), getRandomX() };
-int[] bally = { 0, 0, 0, 0, 0 };
+int[] ballx = { getRandomX(), getRandomX(), getRandomX(), getRandomX(), getRandomX(),getRandomX(), getRandomX(), getRandomX() };
+int[] bally = { 0, 0, 0, 0, 0, 0, 0, 0 };
 
 float ammox = random(10, 590);
 int ammoy = 0;
@@ -255,6 +256,21 @@ void test1()
     stroke (white);
     text("Score: " + score_shooter, 20, 585);
     text("Ammo: " + ammo, 530, 585);
+    if(score_shooter > 20)
+    {
+      enemyNumber = 5;
+    }//end if
+    
+    if(score_shooter > 20)
+    {
+      enemyNumber = 6;
+    }//end if
+    
+    if(score_shooter > 20)
+    {
+      enemyNumber = 7;
+    }//end if
+    
     if(livesFlag == 0)
     {
       text("Lives: " + player_lives, 280, 585);
@@ -315,7 +331,7 @@ void test1()
     
     if(livesFlag == 0)
     {
-      for (int i=0; i< 5; i++)
+      for (int i=0; i< enemyNumber; i++)
       {
          if(bally[i] > 600)
          {
@@ -332,7 +348,7 @@ void test1()
     }//end if
     else
     {
-      for (int i=0; i< 5; i++)
+      for (int i=0; i< enemyNumber; i++)
       {
          if(bally[i] > 600)
          {
@@ -370,12 +386,12 @@ void crosshair()
   
   
 void ballFalling()
-{  
+{ 
   stroke(yellow); 
   fill (yellow); 
   if(gameOver == 0)
   {
-    for (int i=0; i<4; i++)
+    for (int i=0; i<enemyNumber; i++)
     {
       //ellipse(ballx[i], bally[i]++, ballSize, ballSize);
       image(brainAlien, ballx[i], bally[i]++, ballSize, ballSize);
@@ -409,7 +425,7 @@ void cannon(int shotX)
   stroke(brightGreen);
   for (int i = 0; i < 4; i++)
   {
-    if((shotX >= (ballx[i]-ballSize/2)) && (shotX <= (ballx[i]+ballSize/2)) && ammo>0) 
+    if((shotX >= (ballx[i]-ballSize)) && (shotX <= (ballx[i]+ballSize)) && ammo > 0) 
     {
       strike = true;
       line(mouseX, 565, mouseX, bally[i]);
@@ -456,7 +472,8 @@ void gameFinish()
 
 
 void reset()
-{
+{  
+       enemyNumber = 4;
        gameOver = 0;
        score_shooter = 0;
        state = InitialState;

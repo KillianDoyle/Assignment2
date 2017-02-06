@@ -76,6 +76,7 @@ int ammoy = 0;
 int timer;
 int delay = 1000;// ONE SEC
 int now; 
+
 //flag
 boolean flash = false;
 
@@ -460,8 +461,21 @@ void gameFinish()
 {
       background(0);
       fill(red);
-      textFont(Digi_tech16);  
-      text("GAME OVER", width/3, height/2);
+      textFont(Digi_tech16); 
+      fill(red);
+      //flashing warning message
+      if (millis() - now > delay)    
+      { 
+        flash = !flash; //change flag
+        now = millis(); //reset counter
+      }//end if
+      
+      if (flash)
+      {
+          text("GAME OVER", width/3, height/2);   
+      }//end if
+      
+      fill(white);
       text("Your score was : "+ score_shooter, width/3-50, height/2 + 50);
       if(score_shooter < 20)
       {
@@ -469,7 +483,7 @@ void gameFinish()
       }//end if
       else if(score_shooter > 21 && score_shooter < 99)
       {
-        text("Wow! Good work!", width/3-30, height/2 + 100);
+        text("Wow! Good work!", width/3-25, height/2 + 100);
       }//end if else
       else 
       {

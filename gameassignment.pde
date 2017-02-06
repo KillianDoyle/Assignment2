@@ -67,8 +67,8 @@ int getRandomX()
 {
   return int(random(600));
 }
-int[] ballx = { getRandomX(), getRandomX(), getRandomX(), getRandomX(), getRandomX(),getRandomX(), getRandomX(), getRandomX() };
-int[] bally = { 0, 0, 0, 0, 0, 0, 0, 0 };
+int[] ballx = { getRandomX(), getRandomX(), getRandomX(), getRandomX(), getRandomX(), getRandomX(), getRandomX(), getRandomX(), getRandomX(), getRandomX()};
+int[] bally = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
 float ammox = random(10, 590);
 int ammoy = 0;
@@ -261,14 +261,24 @@ void test1()
       enemyNumber = 5;
     }//end if
     
-    if(score_shooter > 20)
+    if(score_shooter > 30)
     {
       enemyNumber = 6;
     }//end if
     
-    if(score_shooter > 20)
+    if(score_shooter > 40)
     {
       enemyNumber = 7;
+    }//end if
+    
+    if(score_shooter > 60)
+    {
+      enemyNumber = 8;
+    }//end if
+    
+    if(score_shooter > 90)
+    {
+      enemyNumber = 10;
     }//end if
     
     if(livesFlag == 0)
@@ -423,7 +433,7 @@ void cannon(int shotX)
   boolean strike = false;
   fill(brightGreen);
   stroke(brightGreen);
-  for (int i = 0; i < 4; i++)
+  for (int i = 0; i < enemyNumber; i++)
   {
     if((shotX >= (ballx[i]-ballSize)) && (shotX <= (ballx[i]+ballSize)) && ammo > 0) 
     {
@@ -463,7 +473,7 @@ void gameFinish()
       }//end if else
       else 
       {
-        text("Incredible!", width/3-10, height/2 + 100);
+        text("Incredible!", width/3-5, height/2 + 100);
       }//end else
      home.run();
 }//end gameFinnish()

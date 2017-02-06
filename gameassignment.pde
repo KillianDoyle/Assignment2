@@ -1,8 +1,8 @@
+//sounds
 import ddf.minim.*;
-
 Minim minim;
 AudioPlayer toggle;
-AudioPlayer lazer;
+AudioPlayer laser;
 
 //Program States
 int InitialState = 0;
@@ -18,6 +18,7 @@ PImage img;
 PImage alien;
 PImage space;
 PImage stars;
+PImage brainAlien;
 
 
 //colors
@@ -58,7 +59,7 @@ int score_shooter = 0;
 int high_score = 0;
 int ammo = 25;
 int player_lives = 3;
-int ballSize = 20;
+int ballSize = 28;
 boolean fire = false;
 int gameOver = 0;
 int getRandomX()
@@ -93,6 +94,7 @@ void setup()
   alien = loadImage("alien.png");
   space = loadImage("space.png");
   stars = loadImage("stars.jpg");
+  brainAlien = loadImage("brain_alien.png");
   
   //classes
   button1 = new Button(width/3+45, 300, "Play", 1);
@@ -118,7 +120,7 @@ void setup()
     //sounds
   minim = new Minim(this);
   toggle = minim.loadFile("Toggle.mp3");
-  lazer = minim.loadFile("Lazer.mp3");
+  laser = minim.loadFile("Laser.mp3");
   
 }//end setup()
 
@@ -299,17 +301,17 @@ void test1()
     if(cursorFlag==0)
     {
       crosshair();
-    }
+    }//end if
     
     else
     {
       noCursor();
-    }
+    }//end else
     
     if (millis() - timer >= 10000) 
     {
       ammoFalling();
-    }
+    }//end if
     
     if(livesFlag == 0)
     {
@@ -376,7 +378,7 @@ void ballFalling()
     for (int i=0; i<4; i++)
     {
       //ellipse(ballx[i], bally[i]++, ballSize, ballSize);
-      image(alien, ballx[i], bally[i]++, ballSize, ballSize);
+      image(brainAlien, ballx[i], bally[i]++, ballSize, ballSize);
     }//end for
   }//end if
 }//end ballFalling()
@@ -394,13 +396,14 @@ void ammoFalling()
   
   
 void cannon(int shotX)
-{
-  lazer.play();
-  lazer.rewind();
+{  
   if(ammo > 0)
   {
-  ammo--;
+    laser.play();
+    laser.rewind();
+    ammo--;
   }//end if
+  
   boolean strike = false;
   fill(brightGreen);
   stroke(brightGreen);
@@ -414,11 +417,11 @@ void cannon(int shotX)
       stroke(red);
       ellipse(ballx[i], bally[i], ballSize+25, ballSize+25);
       ballx[i] = getRandomX();
-      bally[i] = 0;
-      // update score
-      score_shooter++;
+      bally[i] = 0;        //reset ball to top of screen
+      score_shooter++;    // update score
      }//end if
    }//end for
+   
    if(strike == false && ammo  >0)
    {
      line(mouseX, 565, mouseX, 0);
@@ -440,7 +443,7 @@ void gameFinish()
       }//end if
       else if(score_shooter > 21 && score_shooter < 99)
       {
-        text("Wow! Good work!", width/3-40, height/2 + 100);
+        text("Wow! Good work!", width/3-30, height/2 + 100);
       }//end if else
       else 
       {
@@ -462,9 +465,10 @@ void reset()
        LoadPos = 0;
        LoadNeg = 0;
        for (int i=0; i<4; i++)
-      {
+       {
         bally[i]=0;
-      }//end for
+       }//end for
+      
 }//end reset()
 
 
@@ -476,7 +480,7 @@ void options()
   cursor.run();
   home.run();
   text(livesFlag, 100, 100);
-}//en options()
+}//end options()
 
 
 

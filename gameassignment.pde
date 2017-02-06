@@ -19,6 +19,7 @@ PImage alien;
 PImage space;
 PImage stars;
 PImage brainAlien;
+PImage spaceShip;
 
 
 //colors
@@ -97,6 +98,7 @@ void setup()
   space = loadImage("space.png");
   stars = loadImage("stars.jpg");
   brainAlien = loadImage("brain_alien.png");
+  spaceShip = loadImage("SpaceShip.png");
   
   //classes
   button1 = new Button(width/3+45, 300, "Play", 1);
@@ -240,7 +242,7 @@ void buttons()
   button1.run();
   button2.run();
   button3.run();
-}
+}//end buttons
 
 
 

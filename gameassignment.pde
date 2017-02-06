@@ -3,6 +3,7 @@ import ddf.minim.*;
 Minim minim;
 AudioPlayer toggle;
 AudioPlayer laser;
+AudioPlayer reload;
 
 //Program States
 int InitialState = 0;
@@ -66,7 +67,7 @@ boolean fire = false;
 int gameOver = 0;
 int getRandomX()
 {
-  return int(random(600));
+  return int(random(580));
 }
 int[] ballx = { getRandomX(), getRandomX(), getRandomX(), getRandomX(), getRandomX(), getRandomX(), getRandomX(), getRandomX(), getRandomX(), getRandomX()};
 int[] bally = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -125,6 +126,7 @@ void setup()
   minim = new Minim(this);
   toggle = minim.loadFile("Toggle.mp3");
   laser = minim.loadFile("Laser.mp3");
+  reload = minim.loadFile("Reload.mp3");
   
 }//end setup()
 

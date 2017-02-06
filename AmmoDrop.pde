@@ -30,9 +30,11 @@ class AmmoDrop
       textFont(ArialBold14); 
       fill(yellow);
       text("AMMO", ammox[i]+1, ammoy[i]+12);    //ammo text on box
-      if(ammox[i] > mouseX-40 && ammox[i]< ammox[i]+40 && ammoy[i] > 530)      //if the player picks up ammo
+      if(ammox[i] > mouseX - 50 && ammox[i] < mouseX + 50 && ammoy[i] > 530)      //if the player picks up ammo
       {
-          ammo = ammo+10;
+          reload.play();
+          reload.rewind();
+          ammo = ammo + 10;
           ammox[i] = random(10, 580);
           ammoy[i] = -1200;
       }//end if

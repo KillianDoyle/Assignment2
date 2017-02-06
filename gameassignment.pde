@@ -4,6 +4,7 @@ Minim minim;
 AudioPlayer toggle;
 AudioPlayer laser;
 AudioPlayer reload;
+AudioPlayer alien_recording;
 
 //Program States
 int InitialState = 0;
@@ -127,6 +128,7 @@ void setup()
   toggle = minim.loadFile("Toggle.mp3");
   laser = minim.loadFile("Laser.mp3");
   reload = minim.loadFile("Reload.mp3");
+  alien_recording = minim.loadFile("Alien_recording.mp3");
   
 }//end setup()
 
@@ -143,7 +145,8 @@ void draw()
     image(alien, 500, 400, 200, 200);
     buttons();
     fill(white);
-    text("High Score " + high_score, width/3, 570);
+    text("High Score  " + high_score, width/3, 570);
+    alien_recording.play();
   }//end if
   
   else if(state == LoadingScreen)
@@ -502,6 +505,11 @@ void gameFinish()
       {
         text("Incredible!", width/2.5-5, height/3 + 100);
       }//end else
+      //determine if theres a new high score
+      if(score_shooter > high_score)
+      {
+        high_score = score_shooter;
+      }//end if
      home.run();
 }//end gameFinnish()
 
@@ -511,6 +519,7 @@ void gameFinish()
 void reset()
 {      
        //return all variables back to initial state for replay
+       alien_recording.rewind();
        enemyNumber = 4;
        gameOver = 0;
        score_shooter = 0;

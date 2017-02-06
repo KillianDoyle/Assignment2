@@ -289,9 +289,15 @@ void test1()
     
     if(livesFlag == 0)
     {
+      if(player_lives < 2)
+      {
+        fill(red);
+      }//end if
       text("Lives: " + player_lives, 280, 585);
     }//end for
     
+    stroke(white);
+    fill(brightGreen);
     for (int i=0; i<ammo; i++)
     {
       rect( 580, (550)-i*10, 6, 8);    //draws blocks to reprisent magazine/ ammo
@@ -437,13 +443,12 @@ void cannon(int shotX)
   }//end if
   
   boolean strike = false;
-  fill(brightGreen);
-  stroke(brightGreen);
   for (int i = 0; i < enemyNumber; i++)
   {
     if((shotX >= (ballx[i]-ballSize)) && (shotX <= (ballx[i]+ballSize)) && ammo > 0)  //if theres a hit 
     {
       strike = true;
+      stroke(brightGreen);
       line(mouseX, 520, mouseX, bally[i]);
       fill(red);
       stroke(red);
@@ -454,9 +459,9 @@ void cannon(int shotX)
      }//end if
    }//end for
    
-   if(strike == false && ammo  >0)    //if miss, don't draw explosion
+   if(strike == false && ammo  > 0)    //if miss, don't draw explosion
    {
-     fill(brightGreen);
+     stroke(brightGreen);
      line(mouseX, 520, mouseX, 0);
    }//end if 
 }//end cannon()

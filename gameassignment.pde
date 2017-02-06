@@ -253,7 +253,8 @@ void test1()
     textFont(Digi_tech8);  
     fill(blue);
     stroke (blue);
-    triangle(mouseX-8, 540, mouseX+8, 540, mouseX, 565);
+    //triangle(mouseX-8, 540, mouseX+8, 540, mouseX, 565);
+    image(spaceShip, mouseX - 50, 520, 100, 75);
     // display score, ammo and magazine
     fill(white);
     stroke (white);
@@ -441,7 +442,7 @@ void cannon(int shotX)
     if((shotX >= (ballx[i]-ballSize)) && (shotX <= (ballx[i]+ballSize)) && ammo > 0)  //if theres a hit 
     {
       strike = true;
-      line(mouseX, 565, mouseX, bally[i]);
+      line(mouseX, 520, mouseX, bally[i]);
       fill(red);
       stroke(red);
       ellipse(ballx[i], bally[i], ballSize+25, ballSize+25);  //explosion
@@ -451,9 +452,10 @@ void cannon(int shotX)
      }//end if
    }//end for
    
-   if(strike == false && ammo  >0)    //if miss, dont draw explosion
+   if(strike == false && ammo  >0)    //if miss, don't draw explosion
    {
-     line(mouseX, 565, mouseX, 0);
+     fill(brightGreen);
+     line(mouseX, 520, mouseX, 0);
    }//end if 
 }//end cannon()
   

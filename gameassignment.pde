@@ -351,7 +351,7 @@ void test1()
          
          if(player_lives == 0)
          {
-           gameOver = 1;
+           gameOver = 1;  //game is over
            bally[i]=0;    //reset bally to allow game to play again
          }//end if
       }//end for
@@ -368,9 +368,9 @@ void test1()
       }//end for
     }//end else
       
-     if (gameOver == 1)
+     if (gameOver == 1)    //if game is over
      {
-       state = gameFinish;
+       state = gameFinish;  //switch state 
      }//end if
 }//end test1()
  
@@ -380,7 +380,7 @@ void test1()
 void mousePressed()
 {
   fire = true;
-}
+}//end mousePressed()
   
   
 void crosshair()
@@ -392,14 +392,14 @@ void crosshair()
     ellipse(mouseX, mouseY, 30, 30);
     line(mouseX-10, mouseY-10, mouseX+10, mouseY+10);
     line(mouseX+10, mouseY-10, mouseX-10, mouseY+10);
-}
+}//end crosshair
   
   
 void ballFalling()
 { 
   stroke(yellow); 
   fill (yellow); 
-  if(gameOver == 0)
+  if(gameOver == 0)    //if game isn't over
   {
     for (int i=0; i<enemyNumber; i++)
     {
@@ -413,9 +413,9 @@ void ballFalling()
   
 void ammoFalling()
 {  
-  if(gameOver == 0)
+  if(gameOver == 0)    //if the game isn't over
   {
-      ammoCrate.run();
+      ammoCrate.run();  //drops ammo crates
   }//end if
 }//end ammoFalling()  
   
@@ -423,7 +423,7 @@ void ammoFalling()
   
 void cannon(int shotX)
 {  
-  if(ammo > 0)
+  if(ammo > 0)    //if there is ammo left the laser can fire
   {
     laser.play();
     laser.rewind();
@@ -435,20 +435,20 @@ void cannon(int shotX)
   stroke(brightGreen);
   for (int i = 0; i < enemyNumber; i++)
   {
-    if((shotX >= (ballx[i]-ballSize)) && (shotX <= (ballx[i]+ballSize)) && ammo > 0) 
+    if((shotX >= (ballx[i]-ballSize)) && (shotX <= (ballx[i]+ballSize)) && ammo > 0)  //if theres a hit 
     {
       strike = true;
       line(mouseX, 565, mouseX, bally[i]);
       fill(red);
       stroke(red);
-      ellipse(ballx[i], bally[i], ballSize+25, ballSize+25);
+      ellipse(ballx[i], bally[i], ballSize+25, ballSize+25);  //explosion
       ballx[i] = getRandomX();
       bally[i] = 0;        //reset ball to top of screen
       score_shooter++;    // update score
      }//end if
    }//end for
    
-   if(strike == false && ammo  >0)
+   if(strike == false && ammo  >0)    //if miss, dont draw explosion
    {
      line(mouseX, 565, mouseX, 0);
    }//end if 
@@ -482,7 +482,8 @@ void gameFinish()
 
 
 void reset()
-{  
+{      
+       //return all variables back to initial state for replay
        enemyNumber = 4;
        gameOver = 0;
        score_shooter = 0;
@@ -491,11 +492,10 @@ void reset()
        ammo = 25;
        LoadPos = 0;
        LoadNeg = 0;
-       for (int i=0; i<4; i++)
+       for (int i=0; i<enemyNumber; i++)
        {
-        bally[i]=0;
+        bally[i]=0;    //set ball for top of screen
        }//end for
-      
 }//end reset()
 
 
@@ -503,10 +503,10 @@ void reset()
 void options()
 {
   background(0);
+  //calls switches for options
   lives.run();
   cursor.run();
   home.run();
-  text(livesFlag, 100, 100);
 }//end options()
 
 
@@ -514,12 +514,13 @@ void options()
 void test2()
 {
   background(0);
-  home.run();
+  home.run();      //home button
   fill(yellow);
   textFont(Digi_tech16);
   text("Instructions", width/2-105, height/3-50);
   fill(white);
   textFont(Digi_tech8);
+  //display insructions
   text("Use the mouse to move the player", width/2-130, height/3);
   text("Press the mouse to fire lazer", width/2-120, height/3+35);
   text("Shooting an alien will kill it, but more will spawn", width/2-180, height/3+70);

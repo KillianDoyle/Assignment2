@@ -15,7 +15,6 @@ class Button
    yloc =y;
    text2 = text;
    number = num;
-   
  }
  
  void run()
@@ -28,9 +27,9 @@ class Button
     if(mouseX >=xloc && mouseX <=xloc+160 && mouseY >= yloc-20 && mouseY <= yloc+10)
     {
       return true;
-    }
+    }//end if
     return false;
-  }
+  }//end over()
   
  void display()
   {
@@ -42,7 +41,6 @@ class Button
     fill(white);
     textFont(Digi_tech16);
     text(text2, xloc, yloc);
-    
     if(mousePressed)
     {
       if(mouseX >=xloc && mouseX <=xloc+160 && mouseY >= yloc-20 && mouseY<= yloc+10)
@@ -51,12 +49,10 @@ class Button
         {
           state = LoadingScreen;
         }//end if
-        
         if(number == 2)
         {
           state = instructions;
         }//end if
-        
         if(number == 3)
         {
           state = options;

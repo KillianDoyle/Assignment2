@@ -25,13 +25,19 @@ class OptionSwitch
    this.passedcol = passedcol;
  }
   
+  
+  
  void run()
  {
    display();
  }//end run
   
-   int col1 = passedcol;
-   int col2 = white;
+  
+  
+int col1 = passedcol;
+int col2 = white;
+   
+   
    
  void display()
  {
@@ -57,7 +63,6 @@ class OptionSwitch
          col2 = white;
          livesFlag = 0;
        }//end if
-     
       if(mouseX >=xloc+35 && mouseX <=xloc+35 +w && mouseY >= yloc && mouseY <= yloc+h && passedcol == red)
       {
          toggle.play();
@@ -66,7 +71,6 @@ class OptionSwitch
          col2 = passedcol;
          livesFlag = 1;
        }//end if
- 
       if(mouseX >=xloc && mouseX <=xloc+w && mouseY >= yloc && mouseY <= yloc+h && passedcol == yellow)
       {
          toggle.play();
@@ -75,7 +79,6 @@ class OptionSwitch
          col2 = white;
          cursorFlag=0;
        }//end if
-   
       if(mouseX >=xloc+35 && mouseX <=xloc+35 +w && mouseY >= yloc && mouseY <= yloc+h && passedcol == yellow)
       {
          toggle.play();

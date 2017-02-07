@@ -131,6 +131,8 @@ void setup()
   
 }//end setup()
 
+
+
 void draw()
 {
 
@@ -162,7 +164,6 @@ void draw()
     gamePlay();
   }//end else if
   
-  
   else if(state == instructions)
   {
     instructions();
@@ -183,66 +184,6 @@ void draw()
 }//end draw()
 
 
-void Loading()
-{
-  textFont(Arial24);  
-  fill(red);
-  if (LoadPos <= 25)
-  {
-    text("Loading", width/2 - 50, height/2 + 75);
-  }
-  else if (LoadPos < 50 && LoadPos >= 25)
-  {
-    text("Loading.", width/2 - 50, height/2 + 75);
-  }
-  else if (LoadPos < 75 && LoadPos >= 50)
-  {
-    text("Loading..", width/2 - 50, height/2 + 75);
-  }
-  else if (LoadPos <= 100 && LoadPos >= 75)
-  {
-    text("Loading..." ,width/2 - 50, height/2 + 75);
-  }
-  else if (LoadPos <= 125 && LoadPos >= 100)
-  {
-    text("Loading", width/2 - 50, height/2 + 75);
-  }//end else if
-  else if (LoadPos <= 150 && LoadPos >= 125)
-  {
-    text("Loading.", width/2 - 50, height/2 + 75);
-  }//end else if
-  
-  //Loading Bar
-  stroke(0);
-  fill(red);
-  noStroke();
-  rect(width/2, height/2 - 70, LoadNeg, 8);
-  rect(width/2, height/2 - 70, LoadPos, 8);
-  
-  LoadPos +=0.5;
-  if (LoadPos >= 150)
-  {
-     LoadPos = 150;
-  }//end if
-  
-  LoadNeg -= 0.5;
-  if (LoadNeg <= -150)
-  {
-     LoadNeg = -150;
-  }//end if
-  
-  //Percentage
-  PercentageLoading = int ((LoadPos/150)*(100));
-  text(PercentageLoading + "%", width/2-30, height/2);
-  
-  if(PercentageLoading == 100)
-  {
-    delay(300);
-    state = gamePlay;
-  }//end if
-}//end Loading()
-
-
 
 void buttons()
 {
@@ -250,8 +191,6 @@ void buttons()
   button2.run();
   button3.run();
 }//end buttons
-
-
 
 
 
@@ -271,27 +210,22 @@ void gamePlay()
     {
       enemyNumber = 5;
     }//end if
-    
     if(score > 30)
     {
       enemyNumber = 6;
     }//end if
-    
     if(score > 40)
     {
       enemyNumber = 7;
     }//end if
-    
     if(score > 60)
     {
       enemyNumber = 8;
     }//end if
-    
     if(score > 90)
     {
       enemyNumber = 10;
     }//end if
-    
     if(livesFlag == 0)
     {
       if(player_lives < 2)
@@ -300,21 +234,18 @@ void gamePlay()
       }//end if
       text("Lives: " + player_lives, 280, 585);
     }//end for
-    
     stroke(white);
     fill(brightGreen);
     for (int i=0; i<ammo; i++)
     {
       rect( 580, (550)-i*10, 6, 8);    //draws blocks to reprisent magazine/ ammo
     }//end for
-      
     //flashing warning message
     if (millis() - now > delay)    
     { 
       flash = !flash; //change flag
       now = millis(); //reset counter
     }//end if
-    
     if(ammo < 10 && ammo > 0)
     {
        fill(red);
@@ -323,7 +254,6 @@ void gamePlay()
            text("AMMO LOW", 290, height/2);     
        }//end if
     }//end if
-    
     if(ammo == 0)
     {
        fill(red);
@@ -332,14 +262,12 @@ void gamePlay()
            text("AMMO EMPTY", 290, height/2);     
        }//end if
     }//end if
-    
     if(fire)
     {
       cannon(mouseX);
       fire = false;
     }//end if
-    
-    ballFalling();
+    enemyFalling();
     
     if(cursorFlag==0)
     {
@@ -389,15 +317,15 @@ void gamePlay()
      {
        state = endGame;  //switch state 
      }//end if
-}//end gamePlay()
+}//end gamePlay() 
  
-
-  
+ 
  
 void mousePressed()
 {
   fire = true;
 }//end mousePressed()
+  
   
   
 void crosshair()
@@ -412,7 +340,8 @@ void crosshair()
 }//end crosshair
   
   
-void ballFalling()
+  
+void enemyFalling()
 { 
   stroke(yellow); 
   fill (yellow); 
@@ -424,7 +353,7 @@ void ballFalling()
       image(brainAlien, enemyX[i], enemyY[i]++, enemySize, enemySize);
     }//end for
   }//end if
-}//end ballFalling()
+}//end enemyFalling()
   
   
   
@@ -446,7 +375,6 @@ void cannon(int shotX)
     laser.rewind();
     ammo--;
   }//end if
-  
   boolean strike = false;
   for (int i = 0; i < enemyNumber; i++)
   {
@@ -476,13 +404,13 @@ void cannon(int shotX)
       score++;    // update score
      }//end if
    }//end for
-   
    if(strike == false && ammo  > 0)    //if miss, don't draw explosion
    {
      stroke(brightGreen);
      line(mouseX, 520, mouseX, 0);
    }//end if 
 }//end cannon()
+  
   
   
 //GameOver
@@ -498,12 +426,10 @@ void endGame()
         flash = !flash; //change flag
         now = millis(); //reset counter
       }//end if
-      
       if (flash)
       {
           text("GAME OVER", width/2.5, height/3);   
       }//end if
-      
       fill(white);
       text("Your score was "+ score, width/2.5-60, height/3 + 50);
       if(score < 20)
@@ -524,8 +450,7 @@ void endGame()
         high_score = score;
       }//end if
      home.run();
-}//end gameFinnish()
-
+}//end endGame()
 
 
 
@@ -546,6 +471,63 @@ void reset()
         enemyY[i]=0;    //set ball for top of screen
        }//end for
 }//end reset()
+
+
+
+void Loading()
+{
+  textFont(Arial24);  
+  fill(red);
+  if (LoadPos <= 25)
+  {
+    text("Loading", width/2 - 50, height/2 + 75);
+  }
+  else if (LoadPos < 50 && LoadPos >= 25)
+  {
+    text("Loading.", width/2 - 50, height/2 + 75);
+  }
+  else if (LoadPos < 75 && LoadPos >= 50)
+  {
+    text("Loading..", width/2 - 50, height/2 + 75);
+  }
+  else if (LoadPos <= 100 && LoadPos >= 75)
+  {
+    text("Loading..." ,width/2 - 50, height/2 + 75);
+  }
+  else if (LoadPos <= 125 && LoadPos >= 100)
+  {
+    text("Loading", width/2 - 50, height/2 + 75);
+  }//end else if
+  else if (LoadPos <= 150 && LoadPos >= 125)
+  {
+    text("Loading.", width/2 - 50, height/2 + 75);
+  }//end else if
+  //Loading Bar
+  stroke(0);
+  fill(red);
+  noStroke();
+  rect(width/2, height/2 - 70, LoadNeg, 8);
+  rect(width/2, height/2 - 70, LoadPos, 8);
+  LoadPos +=0.5;
+  if (LoadPos >= 150)
+  {
+     LoadPos = 150;
+  }//end if
+  
+  LoadNeg -= 0.5;
+  if (LoadNeg <= -150)
+  {
+     LoadNeg = -150;
+  }//end if
+  //Percentage
+  PercentageLoading = int ((LoadPos/150)*(100));
+  text(PercentageLoading + "%", width/2-30, height/2);
+  if(PercentageLoading == 100)
+  {
+    delay(300);
+    state = gamePlay;
+  }//end if
+}//end Loading()
 
 
 

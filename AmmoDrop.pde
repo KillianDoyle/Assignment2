@@ -18,11 +18,12 @@ class AmmoDrop
    display();
  }//end run
   
+  
+  
  void display()
   {
     stroke(darkGreen);
     fill(darkGreen);
-    
     for (int i=0; i<1; i++)
     {
       ammoY[i]= ammoY[i] + speed;
@@ -38,12 +39,10 @@ class AmmoDrop
           ammoX[i] = random(10, 580);
           ammoY[i] = -1200;
       }//end if
-      
       if(ammo >= 25)        //maximum ammo is 25
       {
           ammo = 25;      
-      }
-      
+      }//end if
       if(ammoY[i] > 600)    //if ammo is missed
       {
         timer = millis();

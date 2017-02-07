@@ -54,7 +54,7 @@ class Button
         
         if(number == 2)
         {
-          state = test2;
+          state = instructions;
         }//end if
         
         if(number == 3)

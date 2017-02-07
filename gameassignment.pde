@@ -6,15 +6,6 @@ AudioPlayer laser;
 AudioPlayer reload;
 AudioPlayer alien_recording;
 
-//Program States
-int InitialState = 0;
-int LoadingScreen = 1;
-int test1 = 2;
-int test2 = 3;
-int options = 4;
-int gameFinish = 5;
-int state = InitialState;
-
 //images
 PImage img;
 PImage alien;
@@ -26,25 +17,6 @@ PImage explosion1;
 PImage explosion2;
 PImage explosion3;
 
-
-//colors
-int green = color(0, 255, 0);
-int darkGreen = color(13, 72, 1);
-int brightGreen = color(35, 250, 70);
-int red = color(255, 0 ,0);
-int darkRed = color(180, 0, 0);
-int blue = color (0, 0, 255);
-int darkBlue = color(5, 0, 180);
-int white = color(255); 
-int yellow = color(250, 255, 0);
-
-
-//Variables for Loading Screen
-float LoadNeg = 0;
-float LoadPos = 0;
-int PercentageLoading = 0;
-
-
 //Fonts
 PFont Digi_tech8; 
 PFont Digi_tech16;
@@ -52,6 +24,7 @@ PFont Digi_tech30;
 PFont Arial24;
 PFont ArialBold14;
 
+//class calls
 Button button1;
 Button button2;
 Button button3;
@@ -60,35 +33,55 @@ HomeButton home;
 OptionSwitch cursor;
 OptionSwitch lives;
 
-//--------------------variables for shooter--------------------------------//
-int score_shooter = 0;
+//variables
+int score = 0;
 int high_score = 0;
 int ammo = 25;
 int player_lives = 3;
 int enemyNumber = 4;
-int ballSize = 28;
+int enemySize = 28;
 boolean fire = false;
 int gameOver = 0;
 int getRandomX()
 {
   return int(random(580));
 }
-int[] ballx = { getRandomX(), getRandomX(), getRandomX(), getRandomX(), getRandomX(), getRandomX(), getRandomX(), getRandomX(), getRandomX(), getRandomX()};
-int[] bally = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+int[] enemyX = { getRandomX(), getRandomX(), getRandomX(), getRandomX(), getRandomX(), getRandomX(), getRandomX(), getRandomX(), getRandomX(), getRandomX()};
+int[] enemyY = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-float ammox = random(10, 590);
-int ammoy = 0;
+float ammoX = random(10, 590);
+int ammoY = 0;
 
 int timer;
 int delay = 1000;// ONE SEC
 int now; 
 
-//flag
+//flags
 boolean flash = false;
-
 int livesFlag = 0;
 int cursorFlag = 0;
 
+//Variables for Loading Screen
+float LoadNeg = 0;
+float LoadPos = 0;
+int PercentageLoading = 0;
+
+//Program States
+int mainMenu = 0;
+int LoadingScreen = 1;
+int gamePlay = 2;
+int instructions = 3;
+int options = 4;
+int endGame = 5;
+int state = mainMenu;
+
+//colors
+int darkGreen = color(13, 72, 1);
+int brightGreen = color(35, 250, 70);
+int red = color(255, 0 ,0);
+int blue = color (0, 0, 255);
+int white = color(255); 
+int yellow = color(250, 255, 0);
 
 void setup()
 {
@@ -107,9 +100,7 @@ void setup()
   explosion1 = loadImage("explosion1.png");
   explosion2 = loadImage("explosion2.png");
   explosion3 = loadImage("explosion3.png");
-  
-  
-  
+ 
   //classes
   button1 = new Button(width/3+45, 300, "Play", 1);
   button2 = new Button(width/3, 360, "Insructions", 2);
@@ -143,7 +134,7 @@ void setup()
 void draw()
 {
 
-  if(state == InitialState)
+  if(state == mainMenu)
   {
     background(0);
     image(space, -300, -10, 1200, 800);
@@ -164,17 +155,17 @@ void draw()
     Loading();
   }//end else if
   
-  else if(state == test1)
+  else if(state == gamePlay)
   {
     alien_recording.pause();
     image(stars, -50, -50);
-    test1();
+    gamePlay();
   }//end else if
   
   
-  else if(state == test2)
+  else if(state == instructions)
   {
-    test2();
+    instructions();
     cursor();
   }//end else if
   
@@ -184,9 +175,9 @@ void draw()
     cursor();
   }//end else if
   
-  else if(state == gameFinish)
+  else if(state == endGame)
   {
-    gameFinish();
+    endGame();
     cursor();
   }//end else if
 }//end draw()
@@ -247,7 +238,7 @@ void Loading()
   if(PercentageLoading == 100)
   {
     delay(300);
-    state = test1;
+    state = gamePlay;
   }//end if
 }//end Loading()
 
@@ -264,7 +255,7 @@ void buttons()
 
 
 
-void test1()
+void gamePlay()
 {
     textFont(Digi_tech8);  
     fill(blue);
@@ -274,29 +265,29 @@ void test1()
     // display score, ammo and magazine
     fill(white);
     stroke (white);
-    text("Score: " + score_shooter, 20, 585);
+    text("Score: " + score, 20, 585);
     text("Ammo: " + ammo, 530, 585);
-    if(score_shooter > 20)
+    if(score > 20)
     {
       enemyNumber = 5;
     }//end if
     
-    if(score_shooter > 30)
+    if(score > 30)
     {
       enemyNumber = 6;
     }//end if
     
-    if(score_shooter > 40)
+    if(score > 40)
     {
       enemyNumber = 7;
     }//end if
     
-    if(score_shooter > 60)
+    if(score > 60)
     {
       enemyNumber = 8;
     }//end if
     
-    if(score_shooter > 90)
+    if(score > 90)
     {
       enemyNumber = 10;
     }//end if
@@ -369,16 +360,16 @@ void test1()
     {
       for (int i=0; i< enemyNumber; i++)
       {
-         if(bally[i] > 600)
+         if(enemyY[i] > 600)
          {
            player_lives = player_lives - 1;
-           bally[i]=0;    //reset bally to allow game to place again
+           enemyY[i]=0;    //reset enemyY to allow game to place again
          }//end if
          
          if(player_lives == 0)
          {
            gameOver = 1;  //game is over
-           bally[i]=0;    //reset bally to allow game to play again
+           enemyY[i]=0;    //reset enemyY to allow game to play again
          }//end if
       }//end for
     }//end if
@@ -386,19 +377,19 @@ void test1()
     {
       for (int i=0; i< enemyNumber; i++)
       {
-         if(bally[i] > 600)
+         if(enemyY[i] > 600)
          {
            gameOver = 1;
-           bally[i]=0;    //reset bally to allow game to play again
+           enemyY[i]=0;    //reset enemyY to allow game to play again
          }//end if
       }//end for
     }//end else
       
      if (gameOver == 1)    //if game is over
      {
-       state = gameFinish;  //switch state 
+       state = endGame;  //switch state 
      }//end if
-}//end test1()
+}//end gamePlay()
  
 
   
@@ -429,8 +420,8 @@ void ballFalling()
   {
     for (int i=0; i<enemyNumber; i++)
     {
-      //ellipse(ballx[i], bally[i]++, ballSize, ballSize);
-      image(brainAlien, ballx[i], bally[i]++, ballSize, ballSize);
+      //ellipse(enemyX[i], enemyY[i]++, enemySize, enemySize);
+      image(brainAlien, enemyX[i], enemyY[i]++, enemySize, enemySize);
     }//end for
   }//end if
 }//end ballFalling()
@@ -459,30 +450,30 @@ void cannon(int shotX)
   boolean strike = false;
   for (int i = 0; i < enemyNumber; i++)
   {
-    if((shotX >= (ballx[i]-ballSize)) && (shotX <= (ballx[i]+ballSize)) && ammo > 0)  //if theres a hit 
+    if((shotX >= (enemyX[i]-enemySize)) && (shotX <= (enemyX[i]+enemySize)) && ammo > 0)  //if theres a hit 
     {
       strike = true;
       stroke(brightGreen);
-      line(mouseX, 520, mouseX, bally[i]);
+      line(mouseX, 520, mouseX, enemyY[i]);
       fill(red);
       stroke(red);
-      //ellipse(ballx[i], bally[i], ballSize+25, ballSize+25);  //explosion
+      //ellipse(enemyX[i], enemyY[i], enemySize+25, enemySize+25);  //explosion
       //determine which explosion to use
-      if(score_shooter % 2 == 0)
+      if(score % 2 == 0)
       {
-        image(explosion1, ballx[i]-10, bally[i], 80, 80);
+        image(explosion1, enemyX[i]-10, enemyY[i], 80, 80);
       }//end if
-      if(score_shooter % 3 == 0)
+      if(score % 3 == 0)
       {
-        image(explosion2, ballx[i]-10, bally[i], 80, 80);
+        image(explosion2, enemyX[i]-10, enemyY[i], 80, 80);
       }//end if
       else
       {
-        image(explosion3, ballx[i]-10, bally[i], 80, 80);
+        image(explosion3, enemyX[i]-10, enemyY[i], 80, 80);
       }//end else
-      ballx[i] = getRandomX();
-      bally[i] = 0;        //reset ball to top of screen
-      score_shooter++;    // update score
+      enemyX[i] = getRandomX();
+      enemyY[i] = 0;        //reset ball to top of screen
+      score++;    // update score
      }//end if
    }//end for
    
@@ -495,7 +486,7 @@ void cannon(int shotX)
   
   
 //GameOver
-void gameFinish()
+void endGame()
 {
       background(0);
       fill(red);
@@ -514,12 +505,12 @@ void gameFinish()
       }//end if
       
       fill(white);
-      text("Your score was "+ score_shooter, width/2.5-60, height/3 + 50);
-      if(score_shooter < 20)
+      text("Your score was "+ score, width/2.5-60, height/3 + 50);
+      if(score < 20)
       {
         text("Better luck next time ", width/2.5-80, height/3 + 100);
       }//end if
-      else if(score_shooter > 21 && score_shooter < 99)
+      else if(score > 21 && score < 99)
       {
         text("Good work!", width/2.5-7, height/3 + 100);
       }//end if else
@@ -528,9 +519,9 @@ void gameFinish()
         text("Incredible!", width/2.5-5, height/3 + 100);
       }//end else
       //determine if theres a new high score
-      if(score_shooter > high_score)
+      if(score > high_score)
       {
-        high_score = score_shooter;
+        high_score = score;
       }//end if
      home.run();
 }//end gameFinnish()
@@ -544,15 +535,15 @@ void reset()
        alien_recording.rewind();
        enemyNumber = 4;
        gameOver = 0;
-       score_shooter = 0;
-       state = InitialState;
+       score = 0;
+       state = mainMenu;
        player_lives = 3;
        ammo = 25;
        LoadPos = 0;
        LoadNeg = 0;
        for (int i=0; i<enemyNumber; i++)
        {
-        bally[i]=0;    //set ball for top of screen
+        enemyY[i]=0;    //set ball for top of screen
        }//end for
 }//end reset()
 
@@ -569,7 +560,7 @@ void options()
 
 
 
-void test2()
+void instructions()
 {
   background(0);
   home.run();      //home button
@@ -584,4 +575,4 @@ void test2()
   text("Shooting an alien will kill it, but more will spawn", width/2-180, height/3+70);
   text("Don't let the aliens pass you by, only you stand in their way", width/2-210, height/3+105);
   text("Your ammunition is limited so catch the crates as they pass you for more", width/2-260, height/3+140);
-}//end test2()
+}//end instructions()

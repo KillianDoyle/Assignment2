@@ -11,3 +11,30 @@ Key Features
     - Option for crosshair and to turn lives on/ off
 - Instructions page on main menu
 
+Screenshots of different pages/ game states
+
+Main Menu
+
+![alt text](https://github.com/KillianDoyle/Assignment2/blob/master/Screenshots/Main_menu.PNG)
+
+Load screen
+
+![alt text](https://github.com/KillianDoyle/Assignment2/blob/master/Screenshots/Loading_screen.PNG)
+
+Game Play
+
+![alt text](https://github.com/KillianDoyle/Assignment2/blob/master/Screenshots/Gameplay.PNG)
+
+Game over
+
+![alt text](https://github.com/KillianDoyle/Assignment2/blob/master/Screenshots/Game_over.PNG)
+
+Instructions
+
+![alt text](https://github.com/KillianDoyle/Assignment2/blob/master/Screenshots/Instructions.PNG)
+
+Options
+
+![alt text](https://github.com/KillianDoyle/Assignment2/blob/master/Screenshots/Options.PNG)
+
+

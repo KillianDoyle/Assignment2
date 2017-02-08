@@ -37,7 +37,7 @@ class AmmoDrop
           reload.rewind();
           ammo = ammo + 10;
           ammoX[i] = random(10, 580);
-          ammoY[i] = -1200;
+          ammoY[i] = -1200;      //put ammo off top of screen
       }//end if
       if(ammo >= 25)        //maximum ammo is 25
       {

@@ -389,15 +389,15 @@ void cannon(int shotX)
       //determine which explosion to use
       if(score % 2 == 0)
       {
-        image(explosion1, enemyX[i]-10, enemyY[i], 80, 80);
+        image(explosion1, enemyX[i]-20, enemyY[i], 80, 80);
       }//end if
       if(score % 3 == 0)
       {
-        image(explosion2, enemyX[i]-10, enemyY[i], 80, 80);
+        image(explosion2, enemyX[i]-20, enemyY[i], 80, 80);
       }//end if
       else
       {
-        image(explosion3, enemyX[i]-10, enemyY[i], 80, 80);
+        image(explosion3, enemyX[i]-20, enemyY[i], 80, 80);
       }//end else
       enemyX[i] = getRandomX();
       enemyY[i] = 0;        //reset ball to top of screen

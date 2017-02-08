@@ -128,7 +128,6 @@ void setup()
   laser = minim.loadFile("Laser.mp3");
   reload = minim.loadFile("Reload.mp3");
   alien_recording = minim.loadFile("Alien_recording.mp3");
-  
 }//end setup()
 
 
